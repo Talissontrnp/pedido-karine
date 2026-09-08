@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pra você 💛</title>
+
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pra você 💛">
+<meta name="theme-color" content="#7A2E3A">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --paper: #FBF3E9;
+    --wine: #7A2E3A;
+    --wine-deep: #5C2029;
+    --gold: #B98B3E;
+    --ink: #3A2E28;
+    --note-a: #F1E1CB;
+    --note-b: #EFD2C8;
+    --note-c: #E4D8C6;
+    --note-d: #F3E0B8;
+    --radius: 20px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{ margin:0; padding:0; height:100%; }
+
+  body{
+    font-family:'Work Sans', sans-serif;
+    color: var(--ink);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 22px;
+    background: var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 15%, rgba(122,46,58,0.08), transparent 42%),
+      radial-gradient(circle at 88% 85%, rgba(185,139,62,0.10), transparent 45%);
+  }
+
+  .phone{
+    position:relative;
+    width:100%;
+    max-width: 420px;
+    background:#fff;
+    border-radius: 28px;
+    box-shadow: 0 1px 2px rgba(58,46,40,0.08), 0 24px 50px -22px rgba(58,46,40,0.4);
+    padding: 30px 26px 26px;
+    min-height: 520px;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    animation: pop-in .5s cubic-bezier(.2,.9,.3,1.2) both;
+  }
+
+  @keyframes pop-in{
+    from{ opacity:0; transform: translateY(14px) scale(.97); }
+    to{ opacity:1; transform: translateY(0) scale(1); }
+  }
+
+  .sticky{
+    position:absolute;
+    top: 14px;
+    right: -34px;
+    background: var(--gold);
+    color:#fff;
+    font-size: 10.5px;
+    font-weight:600;
+    letter-spacing:.3px;
+    padding: 4px 40px;
+    transform: rotate(38deg);
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+  }
+
+  .top-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom: 30px;
+  }
+
+  .dots{ display:flex; gap:6px; }
+  .dots span{
+    width:7px; height:7px;
+    border-radius:50%;
+    background: #ECE1D2;
+    transition: background .3s ease, transform .3s ease;
+  }
+  .dots span.active{ background: var(--wine); transform: scale(1.25); }
+  .dots span.done{ background: var(--gold); }
+
+  .nervous{
+    font-size: 18px;
+    display:inline-block;
+    animation: tremble 1.6s ease-in-out infinite;
+  }
+  @keyframes tremble{
+    0%,100%{ transform: rotate(0deg); }
+    20%{ transform: rotate(-6deg); }
+    40%{ transform: rotate(5deg); }
+    60%{ transform: rotate(-4deg); }
+    80%{ transform: rotate(3deg); }
+  }
+
+  .screen{ display:none; flex:1; flex-direction:column; }
+  .screen.active{ display:flex; }
+
+  .step-body{ flex:1; display:flex; align-items:center; }
+
+  .step-text{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 25px;
+    line-height:1.5;
+    font-weight:500;
+  }
+  .step-text.transition{
+    color: var(--wine-deep);
+    font-style: italic;
+    font-size: 27px;
+  }
+
+  .nav{ display:flex; justify-content:flex-end; margin-top: 20px; }
+  .nav-split{ justify-content:space-between; }
+
+  .greeting-option{ text-align:center; font-weight:500; }
+  .greeting-option.selected{
+    background: var(--wine);
+    color:#fff;
+    box-shadow: 0 8px 16px -10px rgba(122,46,58,.6);
+  }
+
+  .btn{
+    font-family:'Work Sans', sans-serif;
+    font-size: 15px;
+    font-weight:600;
+    color:#fff;
+    background: var(--wine);
+    border:none;
+    padding: 13px 28px;
+    border-radius: 999px;
+    cursor:pointer;
+    letter-spacing:.2px;
+    box-shadow: 0 8px 18px -8px rgba(122,46,58,.6);
+    transition: background .2s ease, transform .15s ease;
+  }
+  .btn:hover{ background: var(--wine-deep); }
+  .btn:active{ transform: scale(.96); }
+  .btn.ghost{
+    background: transparent;
+    color: var(--wine);
+    box-shadow:none;
+    border: 1.5px solid var(--wine);
+  }
+
+  .question-title{
+    font-family:'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight:600;
+    text-align:center;
+    color: var(--wine-deep);
+    margin: 0 0 22px;
+  }
+
+  .options{ display:flex; flex-direction:column; gap: 10px; }
+
+  .option{
+    font-size: 14px;
+    line-height:1.35;
+    text-align:left;
+    padding: 14px 18px;
+    border-radius: 16px;
+    border: none;
+    cursor:pointer;
+    background: var(--note-a);
+    color: var(--ink);
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .option:nth-of-type(2){ background: var(--note-b); }
+  .option:nth-of-type(3){ background: var(--note-c); }
+  .option:nth-of-type(4){ background: var(--note-d); }
+  .option:hover{ box-shadow: 0 8px 16px -10px rgba(58,46,40,.5); }
+  .option:active{ transform: scale(.98); }
+
+  .option.correct{
+    background: var(--wine);
+    color:#fff;
+    font-family:'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight:600;
+    text-align:center;
+    border-radius: 999px;
+    padding: 15px 18px;
+    margin-top: 4px;
+  }
+
+  .trap-note{
+    display:none;
+    margin-top: 14px;
+    font-family:'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--wine-deep);
+    text-align:center;
+    line-height:1.4;
+  }
+  .trap-note.show{ display:block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn{ from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:translateY(0);} }
+
+  .shake{ animation: shake .35s ease; }
+  @keyframes shake{
+    0%,100%{ transform: translateX(0); }
+    25%{ transform: translateX(-6px); }
+    75%{ transform: translateX(6px); }
+  }
+
+  #final .step-body{ flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:22px; }
+  #final .step-text{ font-size: 22px; }
+
+  .keepsake-btn{
+    font-size: 14px;
+    font-weight:600;
+    color: var(--wine);
+    background: var(--note-d);
+    border:none;
+    padding: 12px 22px;
+    border-radius: 999px;
+    cursor:pointer;
+  }
+  .keepsake-btn:active{ transform: scale(.97); }
+
+  .hearts{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:5; }
+  .hearts span{
+    position:absolute; bottom:-30px; font-size:20px; opacity:.9;
+    animation: rise 2.6s ease-in forwards;
+  }
+  @keyframes rise{ to{ transform: translateY(-100vh) rotate(20deg); opacity:0; } }
+
+  @media (prefers-reduced-motion: reduce){
+    .trap-note, .shake, .hearts span, .nervous, .phone{ animation:none !important; }
+  }
+
+  @media (max-width: 400px){
+    .phone{ padding: 24px 18px 20px; min-height: 480px; }
+    .step-text{ font-size: 21px; }
+    .question-title{ font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="phone">
+  <div class="sticky">rascunho nervoso</div>
+
+  <div class="top-row">
+    <div class="dots" id="dots"></div>
+    <span class="nervous">📱</span>
+  </div>
+
+  <div class="screen active" data-step="0">
+    <div class="step-body">
+      <div style="width:100%">
+        <p class="step-text" style="margin-bottom:20px;">A ideia é fazer disso um registro da nossa conversa no almoço de 08/09/2026. Pra começar:</p>
+        <div class="options" id="greetingOptions">
+          <div class="option greeting-option" onclick="selectGreeting(this)">Bom dia</div>
+          <div class="option greeting-option" onclick="selectGreeting(this)">Boa tarde</div>
+          <div class="option greeting-option" onclick="selectGreeting(this)">Boa noite</div>
+        </div>
+      </div>
+    </div>
+    <div class="nav"><button class="btn" onclick="next()">continuar</button></div>
+  </div>
+
+  <div class="screen" data-step="1">
+    <div class="step-body">
+      <p class="step-text">O cenário poderia ser mil vezes melhor, mas estou apostando em um de repente, que pode se tornar mais especial do que algo muito planejado.</p>
+    </div>
+    <div class="nav nav-split"><button class="btn ghost" onclick="prev()">voltar</button><button class="btn" onclick="next()">continuar</button></div>
+  </div>
+
+  <div class="screen" data-step="2">
+    <div class="step-body">
+      <p class="step-text"> Só para você saber antes de passar esse slide, e ter uma ideia do que vem por aí: eu gosto de você. ( O que não é lá nenhuma surpresa pra ninguém aqui).</p>
+    </div>
+    <div class="nav nav-split"><button class="btn ghost" onclick="prev()">voltar</button><button class="btn" onclick="next()">continuar</button></div>
+  </div>
+
+  <div class="screen" data-step="3">
+    <div class="step-body">
+      <p class="step-text transition">O que nos leva à pergunta mais importante do dia: ( se possível come seu doce preferido antes de passar esse slide ) </p>
+    </div>
+    <div class="nav nav-split"><button class="btn ghost" onclick="prev()">voltar</button><button class="btn" onclick="next()">continuar</button></div>
+  </div>
+
+  <div class="screen" data-step="4">
+    <div>
+      <button class="btn ghost" style="padding:8px 18px; font-size:13px; margin-bottom:16px;" onclick="prev()">voltar</button>
+      <p class="question-title">Quer namorar comigo?</p>
+      <div class="options">
+        <div class="option" onclick="trap(this, 'Se escolher essa aqui, a consequência é... você vai ter que dar um mortal pra trás. você Sabe fazer? Não sabe, Então muda de resposta 😄')">a) Não, (cuidado! Tem uma consequência nessa resposta).</div>
+        <div class="option" onclick="trap(this, 'Já que você escolheu essa, retira logo o beijo que vai selar esse acordo com quem te mandou isso aqui 😏')">b) Essa já conta como um sim — mas também carrega uma consequência.</div>
+        <div class="option" onclick="trap(this, 'Essa resposta tem mas acabou. Escolhe outra 👀')">c) Preciso Pensar.</div>
+        <div class="option" onclick="trap(this, 'Aí é loucura! Escolhe a certa logo, tô aqui esperando ')">d) essa opção é só de enfeite, pula essa .</div>
+        <div class="option correct" onclick="finish()">Sim, quero! 💛</div>
+      </div>
+      <p class="trap-note" id="trapNote"></p>
+    </div>
+  </div>
+
+  <div class="screen" id="final" data-step="5">
+    <div class="step-body">
+      <p class="step-text"> Então... Esse slide eu ainda preciso fazer 😅 Eu realmente não sabia se você ia escolher a resposta certa. Mas por agora larga o celular e foca em mim, minha ansiedade já deve estar no limite e o silêcnio nessa mesa não ajuda . Agora sim, a parte boa da conversa começa de verdade.</p>
+      <button class="keepsake-btn" onclick="saveKeepsake()">guardar essa lembrança 💛</button>
+    </div>
+  </div>
+</div>
+
+<div class="hearts" id="hearts"></div>
+<canvas id="keepsakeCanvas" width="1000" height="1400" style="display:none;"></canvas>
+
+<script>
+  const totalSteps = 6;
+  let current = 0;
+
+  function renderDots(){
+    const dotsEl = document.getElementById('dots');
+    dotsEl.innerHTML = '';
+    for(let i=0;i<totalSteps;i++){
+      const d = document.createElement('span');
+      if(i < current) d.classList.add('done');
+      if(i === current) d.classList.add('active');
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function showStep(n){
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelector(`.screen[data-step="${n}"]`).classList.add('active');
+    current = n;
+    renderDots();
+  }
+
+  function next(){ showStep(current + 1); }
+  function prev(){ if(current > 0) showStep(current - 1); }
+
+  function selectGreeting(el){
+    document.querySelectorAll('.greeting-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function trap(el, message){
+    const note = document.getElementById('trapNote');
+    note.textContent = message;
+    note.classList.remove('show'); void note.offsetWidth; note.classList.add('show');
+    el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
+  }
+
+  function finish(){
+    burstHearts();
+    setTimeout(() => showStep(5), 500);
+  }
+
+  function burstHearts(){
+    const container = document.getElementById('hearts');
+    const symbols = ['💛','🤍','💫'];
+    for(let i=0;i<26;i++){
+      const s = document.createElement('span');
+      s.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.animationDelay = (Math.random()*0.6) + 's';
+      s.style.fontSize = (16 + Math.random()*16) + 'px';
+      container.appendChild(s);
+      setTimeout(() => s.remove(), 3200);
+    }
+  }
+
+  function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+    const words = text.split(' ');
+    let line = '';
+    let lines = [];
+    for(const word of words){
+      const test = line + word + ' ';
+      if(ctx.measureText(test).width > maxWidth && line !== ''){
+        lines.push(line);
+        line = word + ' ';
+      } else {
+        line = test;
+      }
+    }
+    lines.push(line);
+    lines.forEach((l, i) => ctx.fillText(l.trim(), x, y + i*lineHeight));
+    return lines.length;
+  }
+
+  function saveKeepsake(){
+    const canvas = document.getElementById('keepsakeCanvas');
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width, h = canvas.height;
+
+    const grad = ctx.createLinearGradient(0,0,0,h);
+    grad.addColorStop(0, '#7A2E3A');
+    grad.addColorStop(1, '#B98B3E');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0,w,h);
+
+    ctx.fillStyle = 'rgba(251,243,233,0.97)';
+    const margin = 60;
+    roundRect(ctx, margin, margin, w-margin*2, h-margin*2, 36);
+    ctx.fill();
+
+    ctx.fillStyle = '#5C2029';
+    ctx.textAlign = 'center';
+
+    ctx.font = '600 46px Georgia, serif';
+    ctx.fillText('💛', w/2, 210);
+
+    const today = new Date();
+    const dataFormatada = today.toLocaleDateString('pt-BR', { day:'numeric', month:'long', year:'numeric' });
+    ctx.font = '500 32px Georgia, serif';
+    ctx.fillText(dataFormatada, w/2, 280);
+
+    ctx.font = 'italic 600 54px Georgia, serif';
+    wrapText(ctx, 'Hoje ela disse sim.', w/2, 420, w-260, 62);
+
+    ctx.font = '400 30px Georgia, serif';
+    ctx.fillStyle = '#7A2E3A';
+    wrapText(ctx, 'E ele, que estava tremendo que nem pudim a manhã inteira, finalmente respirou.', w/2, 560, w-280, 42);
+
+    ctx.font = '600 26px Georgia, serif';
+    ctx.fillStyle = '#B98B3E';
+    ctx.fillText('— feito às pressas, com o coração acelerado —', w/2, h-140);
+
+    const link = document.createElement('a');
+    link.download = 'karine-disse-sim.png';
+    link.href = canvas.toDataURL('image/png');
+    link.target = '_blank';
+    link.click();
+  }
+
+  function roundRect(ctx, x, y, width, height, radius){
+    ctx.beginPath();
+    ctx.moveTo(x+radius, y);
+    ctx.arcTo(x+width, y, x+width, y+height, radius);
+    ctx.arcTo(x+width, y+height, x, y+height, radius);
+    ctx.arcTo(x, y+height, x, y, radius);
+    ctx.arcTo(x, y, x+width, y, radius);
+    ctx.closePath();
+  }
+
+  renderDots();
+</script>
+
+</body>
+</html>
